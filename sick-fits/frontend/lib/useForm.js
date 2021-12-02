@@ -9,7 +9,7 @@ export default function useForm(initial = {}) {
       value = Number(value);
     }
     if (type === 'file') {
-      value[0] = files;
+      [value] = files;
     }
     setInputs({
       ...inputs, // copy existing state
