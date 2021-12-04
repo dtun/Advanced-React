@@ -1,34 +1,70 @@
+import { useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
 import useForm from '../lib/useForm';
 import Form from './styles/Form';
+import DisplayError from './ErrorMessage';
+
+const CREATE_PRODUCT_MUTATION = gql`
+  mutation CREATE_PRODUCT_MUTATION(
+    $name: String!
+    $description: String!
+    $price: Int!
+    $image: Upload
+  ) {
+    createProduct(
+      data: {
+        name: $name
+        description: $description
+        price: $price
+        status: "AVAILABLE"
+        photo: { create: { image: $image, altText: $name } }
+      }
+    ) {
+      id
+      price
+      description
+      name
+    }
+  }
+`;
 
 export default function CreateProduct() {
-  const { inputs, handleChange } = useForm({
+  const { inputs, handleChange, clearForm } = useForm({
     name: '',
     price: '',
     description: '',
     image: '',
   });
+  const [creatProduct, { error, loading }] = useMutation(
+    CREATE_PRODUCT_MUTATION,
+    {
+      variables: inputs,
+    }
+  );
   return (
     <Form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
+        await creatProduct();
+        clearForm();
       }}
     >
-      <fieldset>
+      <DisplayError error={error} />
+      <fieldset aria-busy={loading} disabled={loading}>
         <label htmlFor="image">
           Image
           <input
             required
             type="file"
             id="image"
-            name="imagee"
-            value={inputs.image}
+            name="image"
             onChange={handleChange}
           />
         </label>
         <label htmlFor="name">
           Name
           <input
+            required
             type="text"
             id="name"
             name="name"
@@ -40,6 +76,7 @@ export default function CreateProduct() {
         <label htmlFor="price">
           Price
           <input
+            required
             type="number"
             id="price"
             name="price"
@@ -51,6 +88,7 @@ export default function CreateProduct() {
         <label htmlFor="description">
           Description
           <textarea
+            required
             id="description"
             name="description"
             placeholder="Description"
