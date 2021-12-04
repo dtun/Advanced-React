@@ -6,10 +6,10 @@ export default function useForm(initial = {}) {
   function handleChange(e) {
     let { value, name, type, files } = e.target;
     if (type === 'number') {
-      value = Number(value);
+      value = parseInt(value);
     }
     if (type === 'file') {
-      [value] = files;
+      [value] = e.target.files;
     }
     setInputs({
       ...inputs, // copy existing state
