@@ -37,7 +37,7 @@ export default function CreateProduct() {
     description: '',
     image: '',
   });
-  const [creatProduct, { error, loading }] = useMutation(
+  const [createProduct, { error, loading }] = useMutation(
     CREATE_PRODUCT_MUTATION,
     {
       variables: inputs,
@@ -48,10 +48,10 @@ export default function CreateProduct() {
     <Form
       onSubmit={async (e) => {
         e.preventDefault();
-        const res = await creatProduct();
+        const res = await createProduct();
         clearForm();
         Router.push({
-          pathname: `/product/${res.data.creatProduct.id}`,
+          pathname: `/product/${res.data.createProduct.id}`,
         });
       }}
     >
