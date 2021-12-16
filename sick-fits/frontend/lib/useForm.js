@@ -11,8 +11,9 @@ export default function useForm(initial = {}) {
     if (type === 'file') {
       [value] = e.target.files;
     }
+    const existingState = { ...inputs };
     setInputs({
-      ...inputs, // copy existing state
+      ...existingState,
       [name]: value,
     });
   }
