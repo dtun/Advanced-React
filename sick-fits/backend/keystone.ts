@@ -26,6 +26,9 @@ const { withAuth } = createAuth({
     fields: ['name', 'email', 'password'],
     // todo Add initial roles here
   },
+  passwordResetLink: {
+    sendToken: async () => {},
+  },
 });
 
 export default withAuth(
