@@ -17,7 +17,7 @@ export function RequestReset() {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
   });
-  const [signUp, { data, loading, error }] = useMutation(
+  const [requestReset, { data, loading, error }] = useMutation(
     REQUEST_RESET_MUTATION,
     {
       variables: inputs,
@@ -26,7 +26,7 @@ export function RequestReset() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signUp();
+      await requestReset();
       resetForm();
     } catch (err) {
       console.error(err);
