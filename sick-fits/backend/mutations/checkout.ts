@@ -98,7 +98,7 @@ export async function checkout(
     },
   });
 
-  const cartItemIds = cartItems.map(({ id }) => id);
+  const cartItemIds = user.cart.map(({ id }) => id);
 
   await context.lists.CartItem.deleteMany({
     ids: cartItemIds,
