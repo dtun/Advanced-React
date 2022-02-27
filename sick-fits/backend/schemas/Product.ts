@@ -34,6 +34,5 @@ export const Product = list({
       },
     }),
     price: integer(), // prices in cents
-    // todo Photo
   },
 });
