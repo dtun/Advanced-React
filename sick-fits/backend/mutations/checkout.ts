@@ -28,7 +28,7 @@ export async function checkout(
   if (!userId) {
     throw new Error('Sorry, must be signed in to create an order');
   }
-  const { user } = await context.lists.User.findOne({
+  const user = await context.lists.User.findOne({
     where: { id: userId },
     resolveFields: graphql`
       id
