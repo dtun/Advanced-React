@@ -8,6 +8,7 @@ import {
 import { insertSeedData } from './seed-data';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
+import { Role } from './schemas/Role';
 import { ProductImage } from './schemas/ProductImage';
 import { CartItem } from './schemas/CartItem';
 import { OrderItem } from './schemas/OrderItem';
@@ -63,6 +64,7 @@ export default withAuth(
       CartItem,
       OrderItem,
       Order,
+      Role,
     }),
     extendGraphqlSchema,
     ui: {
