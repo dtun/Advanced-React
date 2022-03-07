@@ -22,5 +22,9 @@ export const User = list({
       ref: 'Role.assignedTo',
       // todo Add access control
     }),
+    products: relationship({
+      ref: 'Product.user',
+      many: true,
+    }),
   },
 });
