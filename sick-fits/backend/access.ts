@@ -26,6 +26,9 @@ export const permissions = {
 
 export const rules = {
   canManageProducts({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     // canManageProducts permission?
     if (permissions.canManageProducts({ session })) {
       return true;
@@ -33,7 +36,32 @@ export const rules = {
     // Is owner of product?
     return { user: { id: session.itemId } };
   },
+  canOrder({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+    // canManageCart permission?
+    if (permissions.canManageCart({ session })) {
+      return true;
+    }
+    // Is owner of product?
+    return { user: { id: session.itemId } };
+  },
+  canManageOrderItems({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+    // canManageCart permission?
+    if (permissions.canManageCart({ session })) {
+      return true;
+    }
+    // Is owner of order?
+    return { order: { user: { id: session.itemId } } };
+  },
   canReadProducts({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     if (permissions.canManageProducts({ session })) {
       return true;
     }
