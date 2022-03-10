@@ -68,4 +68,15 @@ export const rules = {
     // Only see available
     return { status: 'AVAILABLE' };
   },
+  canManageUsers({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+    // canManageUsers permission?
+    if (permissions.canManageUsers({ session })) {
+      return true;
+    }
+    // Only update self
+    return { id: session.itemId };
+  },
 };
