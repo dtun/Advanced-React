@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import Product from '../components/Product';
 import { fakeItem } from '../lib/testUtils';
@@ -14,5 +14,17 @@ describe('Product', () => {
     );
 
     expect(container).toMatchSnapshot();
+  });
+
+  it('renders the image properly', () => {
+    render(
+      <MockedProvider>
+        <Product product={product} />
+      </MockedProvider>
+    );
+
+    const img = screen.getByAltText(product.name);
+
+    expect(img).toBeInTheDocument();
   });
 });
