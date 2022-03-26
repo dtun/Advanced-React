@@ -17,7 +17,7 @@ const ProductStyles = styled.div`
   }
 `;
 
-const SINGLE_ITEM_QUERY = gql`
+export const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
     Product(where: { id: $id }) {
       name
@@ -25,6 +25,7 @@ const SINGLE_ITEM_QUERY = gql`
       description
       id
       photo {
+        id
         altText
         image {
           publicUrlTransformed
@@ -38,7 +39,7 @@ export default function SingleProduct({ id }) {
   const { data, loading, error } = useQuery(SINGLE_ITEM_QUERY, {
     variables: { id },
   });
-  if (loading) return <p>Loading...</p>;
+  if (loading || !data) return <p>Loading...</p>;
   if (error) return <DisplayError error={error} />;
   const { Product } = data;
   return (
@@ -52,7 +53,7 @@ export default function SingleProduct({ id }) {
       />
       <div className="details">
         <h2>{Product.name}</h2>
-        <h2>{Product.description}</h2>
+        <p>{Product.description}</p>
       </div>
     </ProductStyles>
   );
