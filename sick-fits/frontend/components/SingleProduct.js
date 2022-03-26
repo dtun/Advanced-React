@@ -39,7 +39,7 @@ export default function SingleProduct({ id }) {
   const { data, loading, error } = useQuery(SINGLE_ITEM_QUERY, {
     variables: { id },
   });
-  if (loading || !data) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <DisplayError error={error} />;
   const { Product } = data;
   return (
