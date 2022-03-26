@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import SingleProduct, { SINGLE_ITEM_QUERY } from '../components/SingleProduct';
